@@ -9,3 +9,13 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+      
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-name: "flask*"
+        dependency-type: "direct"
+      - dependency-name: "python*"
+        dependency-type: "direct"
