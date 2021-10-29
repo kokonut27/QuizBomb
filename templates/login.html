@@ -3,25 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>QuizBomb</title>
+    <title>Login - QuizBomb</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
   </head>
   <body>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-    <script>
-      function Function() {
-        data = document.getByElementId("playnow").value;
-        alert(data);
-      }
-    </script>
-
-    <h1>QuizBomb</h1>
+    <h1>Login - QuizBomb</h1>
 
     <br><br><br>
-    <p>QuizBomb is a website made for students, teachers, and kids to enjoy studying in a manner of enjoying it! We try to make education enjoyable, fun, and so it does help you! To play now, just click the button below!</p>
-    <br><br>
 
     <a href="{{ url_for('loginrequest') }}"><input type="button" id="playnow" onclick="Function()" value="Play Now!"></a>
     <!--Add styling to button and functions to button-->
