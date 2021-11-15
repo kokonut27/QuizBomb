@@ -1,7 +1,15 @@
-* {
-  margin: 0;
-}
-
 body {
   text-align: center;
+  padding: 2px;
+}
+
+#title {
+  text-decoration: none;
+  color: #333;
+  opacity: 0.75;
+  transition: 0.7s;
+}
+
+#title:hover {
+  opacity: 1;
 }
