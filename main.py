@@ -1,22 +1,25 @@
 from flask import Flask, render_template, request, flash, session, url_for, send_from_directory, redirect
+from werkzeug.exceptions import abort
 import json
 import requests
-import sqlite3 as sql
+import sqlite3
 
 app = Flask(__name__)
 
-def add_data_userpass(username, password):  
-  try:
-    # Connecting to database
-    con = sql.connect('userpass.db')
-    # Getting cursor
-    c =  con.cursor() 
-    # Adding data
-    c.execute("INSERT INTO Shots (username, password) VALUES (%s, %s)" %(username, password))
-    # Applying changes
-    con.commit() 
-  except:
-    print("An error has occured!")
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def get_post(name):
+    conn = get_db_connection()
+    post = conn.execute('SELECT * FROM posts WHERE name = ?',
+                        (name, )).fetchone()
+    conn.close()
+    if post == None:
+      abort(404)
+    return post
+
 
 @app.route('/')
 def index():
@@ -35,20 +38,35 @@ def loginrequest():
     password = request.form["password"]
 
     check_pass = []
+    special_chars = ["`","~","!","@","#","$","%","^","&","*","(",")","[","-","_","=","+","]","{","}","\\","|",";",":","'","\"",",","<",".",">","/","?"]
     for i in password:
-      if i in ["`","~","!","@","#","$","%","^","&","*","(",")","[","-","_","=","+","]","{","}","\\","|",";",":","'","\"",",","<",".",">","/","?"]:
-        special_char = True
-      else:
-        special_char = False
-      if special_char:
-        if len(password) >= 7:
-          passworks = True
-        else:
-          passworks = False
+      check_pass.append(i)
+    if any(i in s for s in special_chars):#i in ["`","~","!","@","#","$","%","^","&","*","(",")","[","-","_","=","+","]","{","}","\\","|",";",":","'","\"",",","<",".",">","/","?"]:
+      special_char = True
+    else:
+      special_char = False
+    if special_char:
+      if len(password) >= 7:
+        passworks = True
       else:
         passworks = False
-      if passworks != True:
-        return render_template("invalidpass.html")
+    else:
+      passworks = False
+    if passworks != True:
+      return render_template("invalidpass.html")
+    
+    con = sqlite3.connect('database.db')
+    c =  con.cursor() 
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='username'")
+    con.commit() 
+    
+    if c == 1:
+      return render_template("invaliduser.html")
+    else:
+      conn = get_db_connection()
+      conn.execute("INSERT INTO posts (username, password) VALUES (?, ?)", (username, password))
+      conn.commit()
+      conn.close()
     return render_template("loginoutput.html", username=username, password=password)
 
 
