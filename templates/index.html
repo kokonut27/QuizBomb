@@ -6,6 +6,10 @@
 
 
 <!-- if login is already true, then skip. else, go to login page -->
+{% if userexists == "True" %}
+<a href="{{ url_for('play') }}"><input type="button" id="playnow" value="Play Now!"></a>
+{% else %}
 <a href="{{ url_for('login') }}"><input type="button" id="playnow" value="Play Now!"></a>
+{% endif %}
 
 {% endblock %}
