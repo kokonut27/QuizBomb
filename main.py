@@ -32,10 +32,7 @@ def get_post(name):
 
 @app.route('/')
 def index():
-  try:
-    userexists = session.get("user_exists")
-  except:
-    pass
+  userexists = session.get("user_exists")
   return render_template(
     'index.html',
     userexists=userexists)
