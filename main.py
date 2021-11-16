@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, flash, session, url_for, send_from_directory, redirect
+from flask import Flask, render_template, request, flash, session, url_for, send_from_directory, redirect, jsonify
 from werkzeug.exceptions import abort
 from flask_session import Session
 import json
 import requests
+import random
+import uuid
 import sqlite3
 import os
 
