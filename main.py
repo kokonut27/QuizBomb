@@ -17,6 +17,11 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+f = open('questions.json')
+questions = json.load(f)
+print(questions)
+topics = ['example-question','coding','math','created-by','english','science','history','fun']
+
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
@@ -84,10 +89,13 @@ def loginrequest():
 
 @app.route('/play')
 def play():
-  return render_template("play.html")
+  return render_template(
+    "play.html",
+    questions=questions
+    )
 
 @app.errorhandler(404)
 def not_found(e):
   return render_template("404.html")
 
-app.run(host="0.0.0.0", port=5050)
+app.run(host="0.0.0.0", port=8080)
