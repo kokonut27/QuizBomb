@@ -32,8 +32,8 @@ def get_post(name):
     post = conn.execute('SELECT * FROM posts WHERE name = ?',
                         (name, )).fetchone()
     conn.close()
-    if post == None:
-      abort(404)
+    if post is None:
+        abort(404)
     return post
 
 
@@ -50,7 +50,9 @@ def login():
 
 @app.route('/login', methods = ["GET", "POST"])
 def loginrequest():
-  if request.method == "POST":
+    if request.method != "POST":
+        return
+
     username = request.form["username"]
     password = request.form["password"]
 
@@ -58,25 +60,16 @@ def loginrequest():
     special_chars = ["`","~","!","@","#","$","%","^","&","*","(",")","[","-","_","=","+","]","{","}","\\","|",";",":","'","\"",",","<",".",">","/","?"]
     for i in password:
       check_pass.append(i)
-    if any(i in s for s in special_chars):#i in ["`","~","!","@","#","$","%","^","&","*","(",")","[","-","_","=","+","]","{","}","\\","|",";",":","'","\"",",","<",".",">","/","?"]:
-      special_char = True
-    else:
-      special_char = False
-    if special_char:
-      if len(password) >= 7:
-        passworks = True
-      else:
-        passworks = False
-    else:
-      passworks = False
-    if passworks != True:
-      flash("Invalid password! The password must include at least 7 characters and havea special character! Try again in a few seconds!")
-    
+    special_char = any(i in s for s in special_chars)
+    passworks = special_char and len(password) >= 7
+    if not passworks:
+        flash("Invalid password! The password must include at least 7 characters and havea special character! Try again in a few seconds!")
+
     con = sqlite3.connect('database.db')
-    c =  con.cursor() 
+    c =  con.cursor()
     c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='username'")
     con.commit() 
-    
+
     if c == 1:
       flash("Invalid username! It already exists! Try again in a few seconds!")
     else:
