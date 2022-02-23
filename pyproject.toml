@@ -8,6 +8,7 @@ authors = ["JBloves27 <<>>"]
 python = "^3.8"
 Flask = "^2.0.3"
 Flask-Session = "^0.4.0"
+replit = "^3.2.4"
 
 [tool.poetry.dev-dependencies]
 

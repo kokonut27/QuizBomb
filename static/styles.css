@@ -1,6 +1,9 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body, html {
   text-align: center;
-  padding: 2px;
+  padding: 16px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #title {
