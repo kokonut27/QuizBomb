@@ -55,7 +55,8 @@ def index():
     id += 1
     try:
       if post(id):
-        db["quizzes"][post(id)] = 
+        if post(id) == 1:
+          db["quizzes"][post(id)] = None # look at clear.py for reference + https://replit.com/@darkdarcool/Glitch-Studios#templates/index.html
       else:
         abort(404)
     except:
