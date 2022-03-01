@@ -22,11 +22,11 @@
 
     <div class="navbar">
       {% if userexists is defined %}
-        <a href="{{ url_for('play') }}">Home</a>
+        <a href="{{ url_for('join') }}">Home</a>
       {% else %}
         <a href="{{ url_for('index') }}">Home</a>
       {% endif %}
-      <a href="{{ url_for('play') }}">Explore</a>
+      <a href="{{ url_for('explore') }}">Explore</a>
       <a href="{{ url_for('join') }}">Join</a>
     </div>
 

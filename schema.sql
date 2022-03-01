@@ -5,5 +5,6 @@ CREATE TABLE quizzes (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     title TEXT NOT NULL,
     topic TEXT NOT NULL,
-    displayContent TEXT NOT NULL,
+    displayContent TEXT NOT NULL
+    --questions TEXT NOT NULL
 );

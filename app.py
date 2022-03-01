@@ -42,11 +42,28 @@ def index():
   conn = get_db_connection()
   quizzes = conn.execute('SELECT * FROM quizzes').fetchall()
   conn.close()
+
+  quizzes = list(reversed(quizzes))
+  
+  def post(post_id):
+    post = get_post(post_id)
+    return post["id"]
+  
+  id = 0
+  
+  for quiz in quizzes:
+    id += 1
+    try:
+      if post(id):
+        db["quizzes"][post(id)] = 
+      else:
+        abort(404)
+    except:
+      abort(404)
   return render_template(
     'index.html',
     userexists=userexists,
-    username = request.headers['X-Replit-User-Name'],
-    quizzes=list(reversed(quizzes))
+    quizzes=quizzes
   )
 
 @app.route('/login')
@@ -75,15 +92,15 @@ def loginrequest():
     db["username"].append(username)
   return redirect(url_for('index'))
 
-@app.route('/play')
-def play():
+@app.route('/explore')
+def explore():
   all_posts = db["posts"]
 
   for posts in all_posts:
     pass
   
   return render_template(
-    "play.html",
+    "explore.html",
     questions=questions,
     posts=posts
     )
@@ -100,4 +117,5 @@ def join():
 def not_found(e):
   return render_template("404.html")
 
-app.run(host="0.0.0.0", port=8080)
+if __name__ == "__main__":
+  app.run(host="0.0.0.0", port=8080)

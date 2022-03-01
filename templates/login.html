@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<title>QuizBomb - Login</title>
+
 <form method="POST" action="{{ url_for('login') }}">
   <input type="text" id="username" name="username" placeholder="Username" required/>
   <br>

@@ -1,4 +1,5 @@
-import sqlite3 
+from replit import db
+import sqlite3
 
 connection = sqlite3.connect('database.db')
 
@@ -7,6 +8,7 @@ with open('schema.sql') as f:
 
 cur = connection.cursor()
 
+"""
 questions = {
   "question-1": {
     "topic": "example-question", 
@@ -19,8 +21,10 @@ questions = {
     "answer": None
   }
 }
+"""
+questions = db["quizzes"][1]
 
-cur.execute("INSERT INTO quizzes (title, topic, displayContent, questions) VALUES (?, ?, ?, ?)", ('Welcome to QuizBomb!', 'example-quiz', 'Welcome to QuizBomb! We hope you have lots of fun here, and we hope you enjoy!', questions))
+cur.execute("INSERT INTO quizzes (title, topic, displayContent) VALUES (?, ?, ?)", ('Welcome to QuizBomb!', 'example-quiz', 'Welcome to QuizBomb! We hope you have lots of fun here, and we hope you enjoy!',))
 
 connection.commit()
 connection.close()
