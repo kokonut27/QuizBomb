@@ -1,1 +1,3 @@
-from replit import db; db.clear()
+from replit import db
+db.clear()
+db["username"] = []

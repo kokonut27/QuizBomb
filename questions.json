@@ -1,1 +1,17 @@
-[{"topic":"example-question", "question":"Who was the founder of Python?", "answer":"guido van rossum"}, {"topic":"example-question", "question":"Who was the founder of JavaScript?", "answer":"brendan eich"}]
+[
+  {
+    "topic": "example-question", 
+    "question": "Who was the founder of Python?",
+    "answer": "guido van rossum"
+  }, 
+  {
+    "topic": "example-question", 
+    "question": "Who was the founder of JavaScript?",
+    "answer": "brendan eich"
+  },
+  {
+    "topic": "math",
+    "question": null,
+    "answer": null
+  }
+]

@@ -9,7 +9,6 @@
     <style>
       img {
         vertical-align: middle;
-        // border-radius: 50%;
       }
     </style>
   </head>
@@ -18,6 +17,18 @@
     <a href="/" id="title">
       <img src="{{ url_for('static', filename='favicon.png') }}" width="50" height="50"/><h1 style="display: inline">QuizBomb</h1>
     </a>
+
+    <br>
+
+    <div class="navbar">
+      {% if userexists is defined %}
+        <a href="{{ url_for('play') }}">Home</a>
+      {% else %}
+        <a href="{{ url_for('index') }}">Home</a>
+      {% endif %}
+      <a href="{{ url_for('play') }}">Explore</a>
+      <a href="{{ url_for('join') }}">Join</a>
+    </div>
 
     <br><br><br>
 

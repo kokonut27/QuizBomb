@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, flash, session, url_for, send
 from werkzeug.exceptions import abort
 from flask_session import Session
 from replit import db
+import sqlite3
+import markdown2
 import json
 import random
 import os
@@ -15,19 +17,41 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def get_post(post_id):
+    conn = get_db_connection()
+    post = conn.execute('SELECT * FROM quizzes WHERE id = ?',
+                        (post_id, )).fetchone()
+    conn.close()
+    if post == None:
+        abort(404)
+    return post
+
+
 f = open('questions.json')
 questions = json.load(f)
-topics = ['example-question', 'coding', 'math', 'created-by', 'english', 'science', 'history', 'fun']
+topics = ['example-question', 'coding', 'math', 'created-by', 'english', 'science', 'history', 'fun', 'gaming', 'random']
 # db["username"] = []
 # print(db["username"])
 
 @app.route('/')
 @app.route('/home')
 def index():
-  userexists = session.get("user_exists")
+  userexists = db["username"]
+  conn = get_db_connection()
+  quizzes = conn.execute('SELECT * FROM quizzes').fetchall()
+  conn.close()
   return render_template(
     'index.html',
-    userexists=userexists)
+    userexists=userexists,
+    username = request.headers['X-Replit-User-Name'],
+    quizzes=list(reversed(quizzes))
+  )
 
 @app.route('/login')
 def login():
@@ -59,10 +83,24 @@ def loginrequest():
 
 @app.route('/play')
 def play():
+  all_posts = db["posts"]
+
+  for posts in all_posts:
+    pass
+  
   return render_template(
     "play.html",
-    questions=questions
+    questions=questions,
+    posts=posts
     )
+
+@app.route('/join', methods = ["POST", "GET"])
+def join():
+  if request.method == "GET":
+    return render_template("join.html")
+  
+  if request.method == "POST":
+    pass
 
 @app.errorhandler(404)
 def not_found(e):

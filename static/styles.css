@@ -16,3 +16,32 @@ body, html {
 #title:hover {
   opacity: 1;
 }
+
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  margin: 0 auto;
+  border: 1em;
+  border-radius: 5px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.navbar a {
+  opacity: 1;
+  text-decoration: none;
+  color: #171c18;
+  float: center;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.navbar a:hover {
+  opacity: 1;
+  color: #e1e3e1;
+  background-color: #5477ab;
+}

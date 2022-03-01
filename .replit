@@ -1,2 +1,2 @@
 language = "python"
-run = "python main.py" # clear.py
+run = "python clear.py" # clear.py; init_db.py

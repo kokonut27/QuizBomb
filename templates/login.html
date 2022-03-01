@@ -1,18 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<script>
-  function Function() {
-    let usernamee = document.getElementById("username").value;
-    let passwordd = document.getElementById("password").value;
-        
-    /*$.post( "/login", {
-      username: usernamee,
-      password: passwordd
-    });*/
-  };
-</script>
-
 <form method="POST" action="{{ url_for('login') }}">
   <input type="text" id="username" name="username" placeholder="Username" required/>
   <br>
